@@ -5,7 +5,7 @@ API_KEY = prompt('Enter your Gemini API Key:');
 if(API_KEY) localStorage.setItem('jarvis_key', API_KEY);
 }
 // ===== 2. SMART MODELS (ఒకటిfail అయితేnext auto try) =====
-const MODELS = ["gemini-3.6-flash", "gemini-flash-latest"];
+const MODELS = ["gemini-2.5-flash", "gemini-flash-latest"];
 const chat=document.getElementById('chat');
 const input=document.getElementById('msg');
 const micBtn=document.getElementById('mic-btn');
@@ -15,16 +15,16 @@ async function callGemini(p){
 let lastErr;
 for(const m of MODELS){
 try{
-const res=await fetch(
-"https://generativelanguage.googleapis.com/v1beta/models/"+m+":generateContent?key="
-+API_KEY,
+const res = await fetch(
+  `https://googleapis.com{m}:generateContent?key=${API_KEY}`,
+
 {method:"POST",headers:{"Content-Type":"application/json"},
 body:JSON.stringify({contents:[{parts:[{text:p}]}]})});
 const data=await res.json();
 if(data.error){
 lastErr=new Error(data.error.message);
-if(/high demand|temporar|quota|rate|unavailable|no longer
-available|deprecated/i.test(data.error.message)) continue;
+if(/highadd('J.A.R.V.I.S: Thinking...','ai'); demand|temporar|quota|rate|unavailable|no longer
+available|deadd('J.A.R.V.I.S: Thinking...','ai');precated/i.test(data.error.message)) continue;
 throw lastErr;
 }
 return data.candidates[0].content.parts[0].text;
